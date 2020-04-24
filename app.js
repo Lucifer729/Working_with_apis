@@ -1,52 +1,62 @@
 var request=require('request');
-//var unirest = require("unirest");
 	express=require('express');
 	app=express();
 	twilio=require("twilio")
-var a;
-//var req = unirest("GET", "https://covid19india.p.rapidapi.com/getStateData/UP/aligarh");
-//var req = unirest("GET","https://coronavirus-tracker-india-covid-19.p.rapidapi.com/api/getStatewise");
-var client = new twilio('AC5e5184b4ebe1c1400c24dd7bac4b9d74', '69822ae449c3bc187964fd8db78675d2');
+	_=require("underscore");
+	CronJob=require("cron").CronJob;
+var confirmed = 0;
+var deaths=0;
+	// const Nexmo = require('nexmo')
 
-var options = {
-  method: 'GET',
-  url: 'https://covid-19-india-data-by-zt.p.rapidapi.com/GetIndiaDistrictWiseDataForState',
-  qs: {statecode: 'UP'},
-  headers: {
-    'x-rapidapi-host': 'covid-19-india-data-by-zt.p.rapidapi.com',
-    'x-rapidapi-key': '1c138af3edmsh5f4bf9a1aad505cp1a750ejsn07d6bdb74696'
-  }
-};
+	// const Nexmo = require('nexmo');
 
+// const nexmo = new Nexmo({
+//   apiKey: '365e0162',
+//   apiSecret: 'LsxZDccdDX5XzlwN',
+// });
+var client = new twilio('ACae4c56521f8a0ed752de25d4d15a3731', '2991bc1cdce238cb8fbbd0e4eb3d4324');
+
+
+//var a;
+var job=new CronJob('* * * * * *',function(){
+	var options = {
+			method: 'GET',
+			url: 'https://covid-19-india-data-by-zt.p.rapidapi.com/GetIndiaDistrictWiseDataForState',
+			qs: {statecode: 'MH'},
+			headers: {
+				'x-rapidapi-host': 'covid-19-india-data-by-zt.p.rapidapi.com',
+				'x-rapidapi-key': '1c138af3edmsh5f4bf9a1aad505cp1a750ejsn07d6bdb74696'
+			}
+	};
 request(options, function (error, response, body) {
 	if (error) throw new Error(error);
 	var parsedData=JSON.parse(body);
-	console.log(parsedData.data[1].active);
-	a=(parsedData.data[1].active).toString()
-	console.log(typeof a)
-	//res.send(parsedData);
+	//console.log(parsedData.data[1]);
+	parsedData.data.filter(function(city){
+		 if(city.name=="Mumbai"){
+		 	confirmed=city.confirmed;
+		 	deaths=city.deceased;
+		 };
+		});
+		console.log(confirmed);
+	});
 });
+//});
+console.log("after instansiation");
+job.start();
 
 
 
+	//a=(parsedData.data[1].active).toString()
+	//console.log(typeof a)
+	//res.send(parsedData);
+	// client.messages.create({
+	//   to: '+918630757295',
+	//   from: '+17759904978',
+	//   body: "cases in  aligarh are " //selectedCity.data[0].active
+	// }).then(message => console.log(message.status));
+	// 	console.log("done")
 
-//app=express();
-
-
-client.messages.create({
-  to: '+918630757295',
-  from: '+12029372063',
-  body: "cases in  aligarh are" +  a
-}).then(message => console.log(message.status));
-	console.log("done")
-
-
-// req.end(function (res) {
-// 	if (res.error) throw new Error(res.error);
-
-// 	console.log(res.body);
-// 	//res.send(body);
-// });
 
 app.get("/",function(req,res){
 	res.send("hello beta");

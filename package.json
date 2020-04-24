@@ -1,4 +1,4 @@
-{
+ {
   "name": "covid19",
   "version": "1.0.0",
   "description": "",
@@ -9,9 +9,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cron": "^1.8.2",
     "express": "^4.17.1",
+    "nexmo": "^2.6.0",
+    "node-fetch": "^2.6.0",
     "request": "^2.88.2",
     "twilio": "^3.42.2",
+    "underscore": "^1.10.2",
     "unirest": "^0.6.0"
   }
 }

@@ -31,7 +31,9 @@ var request=require('request');
 //   console.log(response.body);
 // });
 
-mongoose.connect('mongodb://localhost:27017/covid_app' || 'mongodb+srv://Amulya:Amulya29@@cluster0-esrca.mongodb.net/test?retryWrites=true&w=majority', {
+//var url = process.env.MONGOLAB_URI;
+
+mongoose.connect('process.env.MONGOLAB_URI', {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 	useCreateIndex: true

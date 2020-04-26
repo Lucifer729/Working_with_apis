@@ -33,25 +33,24 @@ var request=require('request');
 
 //var url = process.env.MONGOLAB_URI;
 
-// mongoose.connect('mongodb+srv://Amulya:Amulya29@@cluster0-esrca.mongodb.net/test?retryWrites=true&w=majority', {
-// 	useNewUrlParser: true,
-// 	useUnifiedTopology: true,
-// 	useCreateIndex: true
-// }).then(() => {
-// 	console.log("Connected to mongoose server");
-// }).catch(err => {
-// 	console.log("ERROR", err.message);
-// });
-
-
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://Amulya:<password>@cluster0-esrca.mongodb.net/test?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true });
-client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  client.close();
+mongoose.connect("mongodb+srv://amulya:Amulya29@@cluster0-mxqpw.mongodb.net/test?retryWrites=true&w=majority", {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+	useCreateIndex: true
+}).then(() => {
+	console.log("Connected to mongoose server");
+}).catch(err => {
+	console.log("ERROR", err.message);
 });
 
+
+// const MongoClient = require('mongodb').MongoClient;
+// const uri = "mongodb+srv://Amulya:<password>@cluster0-esrca.mongodb.net/test?retryWrites=true&w=majority";
+// const client = new MongoClient(uri, { useNewUrlParser: true });
+// client.connect(err => {
+//   const collection = client.db("test").collection("devices");
+//   client.close();
+// });
 
 //,{useNewUrlParser:true,useUnifiedTopology:true})
 var covidSchema=new mongoose.Schema({

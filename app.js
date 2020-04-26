@@ -31,7 +31,7 @@ var request=require('request');
 //   console.log(response.body);
 // });
 
-mongoose.connect('mongodb://localhost:27017/covid_app',{useNewUrlParser:true,useUnifiedTopology:true})
+mongoose.connect('mongodb+srv://Amulya:Amulya29@@cluster0-esrca.mongodb.net/test?retryWrites=true&w=majority',{useNewUrlParser:true,useUnifiedTopology:true})
 var covidSchema=new mongoose.Schema({
 	name:String,
 	confirmed:Number,

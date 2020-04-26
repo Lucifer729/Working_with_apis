@@ -58,17 +58,17 @@ var Covid=mongoose.model("Covid",covidSchema);
 var client = new twilio('AC81bad57961d2f256bae9d7d47a17975a', 'eb17dc86afbc9181ff3e3b819372779e');
 
 //bs deploy ke lye hai baad me delete krna hai
-// Covid.create({
-// 		 	name:"Aligarh",
-// 			confirmed:11
-// 		  },function(err,response){
-// 		 	if(err){
-// 		 		console.log(err)
-// 			 	 }
-// 			 	 else{
-// 			 	 	console.log("successfully created")
-// 			 	 }
-// 			 });
+Covid.create({
+		 	name:"Aligarh",
+			confirmed:11
+		  },function(err,response){
+		 	if(err){
+		 		console.log(err)
+			 	 }
+			 	 else{
+			 	 	console.log("successfully created")
+			 	 }
+			 });
 
 //var a;
 var job=new CronJob(' * * * * *',function(){

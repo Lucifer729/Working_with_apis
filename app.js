@@ -4,17 +4,47 @@ var request=require('request');
 	twilio=require("twilio")
 	_=require("underscore");
 	CronJob=require("cron").CronJob;
-var confirmed = 0;
-var deaths=0;
+	mongoose=require("mongoose");
+	var stats = {};
+	//var confirmedcases,deaths,active,newcases,recovered;
 	// const Nexmo = require('nexmo')
 
 	// const Nexmo = require('nexmo');
 
 // const nexmo = new Nexmo({
 //   apiKey: '365e0162',
-//   apiSecret: 'LsxZDccdDX5XzlwN',
+//   apiSecret: 'LsxZDccdDX5XzlwN',x
 // });
-var client = new twilio('ACae4c56521f8a0ed752de25d4d15a3731', '2991bc1cdce238cb8fbbd0e4eb3d4324');
+
+//var request = require('request');
+// var options = {
+//   method: 'POST',
+//   url: 'https://http-api.d7networks.com/send?username=zqjs1695&password=CQbW8UhQ&dlr-method=POST&dlr-url=https://4ba60af1.ngrok.io/receive&dlr=yes&dlr-level=3&from=SMSinfo&content=This is the sample content sent to test &to=+918630757295',
+//   headers: {
+//   },
+//   formData: {
+
+//   }
+// };
+// request(options, function (error, response) {
+//   if (error) throw new Error(error);
+//   console.log(response.body);
+// });
+
+mongoose.connect('mongodb://localhost:27017/covid_app',{useNewUrlParser:true,useUnifiedTopology:true})
+var covidSchema=new mongoose.Schema({
+	name:String,
+	confirmed:Number,
+	// dth:Number,
+	// actv:Number,
+	// new:Number,
+	// recvr:Number
+});
+var Covid=mongoose.model("Covid",covidSchema);
+
+// 
+
+var client = new twilio('AC81bad57961d2f256bae9d7d47a17975a', 'eb17dc86afbc9181ff3e3b819372779e');
 
 
 //var a;
@@ -22,7 +52,7 @@ var job=new CronJob('* * * * * *',function(){
 	var options = {
 			method: 'GET',
 			url: 'https://covid-19-india-data-by-zt.p.rapidapi.com/GetIndiaDistrictWiseDataForState',
-			qs: {statecode: 'MH'},
+			qs: {statecode: 'UP'},
 			headers: {
 				'x-rapidapi-host': 'covid-19-india-data-by-zt.p.rapidapi.com',
 				'x-rapidapi-key': '1c138af3edmsh5f4bf9a1aad505cp1a750ejsn07d6bdb74696'
@@ -30,38 +60,102 @@ var job=new CronJob('* * * * * *',function(){
 	};
 request(options, function (error, response, body) {
 	if (error) throw new Error(error);
-	var parsedData=JSON.parse(body);
-	//console.log(parsedData.data[1]);
-	parsedData.data.filter(function(city){
-		 if(city.name=="Mumbai"){
-		 	confirmed=city.confirmed;
-		 	deaths=city.deceased;
-		 };
-		});
-		console.log(confirmed);
-	});
+	else{
+		var parsedData=JSON.parse(body);
+		parsedData.data.filter(function(city){
+		 	if(city.name=="Aligarh"){
+		 	//console.log(city.confirmed + " " + typeof city.confirmed);
+		 	Covid.findOne({name: "Aligarh"},function(err,doc){
+					// console.log(typeof doc.toString());
+					if(city.confirmed==doc.confirmed.toString())
+					console.log("No new case "/*+city.confirmed+doc.confirmed.toString()*/);
+					else{
+					Covid.updateOne({name:"Aligarh"},city,function(err,updated){
+						console.log("successfully updated");
+						client.messages.create({
+						  to: '+918630757295',
+						  from: '+18634501351',
+						  body: "COVID 19 ALERT!!!\n" +city.newconfirmed +"New cases in  Aligarh\n Confirmed: "+city.confirmed +"\nDeaths: "+city.deceased //selectedCity.data[0].active
+						}).then(message => console.log(message.status));
+				});
+		};
+	});	
+}
 });
-//});
+};
+});
+});
 console.log("after instansiation");
 job.start();
 
+app.listen(3000,function(req,res){
+	console.log("server started");
+})
+
+//console.log(parsedData.data[1]);
+		// 
+				
+		// 	}
+				// stats ={
+				// 	name:city.name,
+				// 	cnf:city.confirmed,
+				//  	dth:city.deceased,
+				//  	actv:city.active,
+				//  	new:city.newconfirmed,
+				//  }
+				 
+				//  if(stats.new!=0){
+				//  
+				// }
+				// else{
+				// 	console.log("no new case");
+				// }
+				// else{
+				// 	console.log("no new case");
+				// }
+			//}
+				
+	//}
+//});
+				// var query=Covid.find({'name':'Jaipur'});
+				// // if(stats.cnf==
+				// console.log(query.select('confirmed'));
+				// // {
+				// console.log("new active cases"+stats.actv)
+				// Covid.updateOne(stats)
+				// }
+				// else{
+				// 	console.log("no new case");
+				// }
+
+
+				 // Covid.create({
+				 // 	name:stats.nme,
+					// confirmed:stats.cnf
+				 // },function(err,response){
+				 // 	if(err){
+				 // 		console.log(err)
+					// 	 }
+					// 	 else{
+					// 	 	console.log("successfully created")
+					// 	 }
+				 // });
+				//console.log(stats.cnf)
+				// Covid.find({},function(err,data){
+				// 	if(err)
+				// 		console.log(err);
+				// 	console.log(" no data");
+				// });	 
+	
+	//console.log("COVID 19 ALERT!!!\nCases in  Jaipur:\nConfirmed: "+confirmedcases +"\nDeaths: "+deaths +"\nNew Cases: " +newcases );
 
 
 	//a=(parsedData.data[1].active).toString()
 	//console.log(typeof a)
 	//res.send(parsedData);
-	// client.messages.create({
-	//   to: '+918630757295',
-	//   from: '+17759904978',
-	//   body: "cases in  aligarh are " //selectedCity.data[0].active
-	// }).then(message => console.log(message.status));
-	// 	console.log("done")
+	
 
 
 app.get("/",function(req,res){
-	res.send("hello beta");
-})
-
-app.listen(3000,function(req,res){
-	console.log("server started");
+	res.send("hello");
 })

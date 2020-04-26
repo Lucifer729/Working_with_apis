@@ -1,4 +1,4 @@
- {
+{
   "name": "covid19",
   "version": "1.0.0",
   "description": "",
@@ -11,6 +11,7 @@
   "dependencies": {
     "cron": "^1.8.2",
     "express": "^4.17.1",
+    "mongoose": "^5.9.10",
     "nexmo": "^2.6.0",
     "node-fetch": "^2.6.0",
     "request": "^2.88.2",

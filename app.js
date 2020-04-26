@@ -33,7 +33,7 @@ var request=require('request');
 
 //var url = process.env.MONGOLAB_URI;
 
-mongoose.connect(process.env.MONGOLAB_URI, {
+mongoose.connect(process.env.MONGOLAB_URL, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 	useCreateIndex: true

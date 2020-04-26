@@ -33,7 +33,7 @@ var request=require('request');
 
 //var url = process.env.MONGOLAB_URI;
 
-mongoose.connect(process.env.MONGOLAB_URL, {
+mongoose.connect('mongodb+srv://Amulya:Amulya29@@cluster0-esrca.mongodb.net/test?retryWrites=true&w=majority', {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 	useCreateIndex: true

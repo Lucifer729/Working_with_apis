@@ -31,7 +31,14 @@ var request=require('request');
 //   console.log(response.body);
 // });
 
-mongoose.connect('mongodb+srv://Amulya:Amulya29@@cluster0-esrca.mongodb.net/test?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://Amulya:Amulya29@@cluster0-esrca.mongodb.net/test?retryWrites=true&w=majority', {
+	useNewUrlParser: true,
+	useCreateIndex: true
+}).then(() => {
+	console.log("Connected to mongoose server");
+}).catch(err => {
+	console.log("ERROR", err.message);
+});
 //,{useNewUrlParser:true,useUnifiedTopology:true})
 var covidSchema=new mongoose.Schema({
 	name:String,

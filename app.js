@@ -182,6 +182,6 @@ app.listen(process.env.PORT || 3000,function(req,res){
 	
 
 
-app.get("/",function(req,res){
+app.get("*",function(req,res){
 	res.send("hello");
 })

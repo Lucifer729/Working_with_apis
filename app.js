@@ -2,10 +2,8 @@ var request=require('request');
 	express=require('express');
 	app=express();
 	twilio=require("twilio")
-	_=require("underscore");
 	CronJob=require("cron").CronJob;
 	mongoose=require("mongoose");
-	var stats = {};
 	//var confirmedcases,deaths,active,newcases,recovered;
 	// const Nexmo = require('nexmo')
 
@@ -50,7 +48,7 @@ var request=require('request');
 //,{useNewUrlParser:true,useUnifiedTopology:true})
 var covidSchema=new mongoose.Schema({
 	name:String,
-	confirmed:Number,
+	confirmed:Number
 	// dth:Number,
 	// actv:Number,
 	// new:Number,
@@ -60,7 +58,7 @@ var Covid=mongoose.model("Covid",covidSchema);
 
 // 
 
-var client = new twilio('AC81bad57961d2f256bae9d7d47a17975a', 'eb17dc86afbc9181ff3e3b819372779e');
+var client = new twilio('AC81bad57961d2f256bae9d7d47a17975a','eb17dc86afbc9181ff3e3b819372779e');
 
 //bs deploy ke lye hai baad me delete krna hai
 // Covid.create({
@@ -76,7 +74,7 @@ var client = new twilio('AC81bad57961d2f256bae9d7d47a17975a', 'eb17dc86afbc9181f
 // 			 });
 
 //var a;
-var job=new CronJob('* * * * *',function(){
+var job=new CronJob('* * * * * *',function(){
 	var options = {
 			method: 'GET',
 			url: 'https://covid-19-india-data-by-zt.p.rapidapi.com/GetIndiaDistrictWiseDataForState',

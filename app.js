@@ -4,6 +4,7 @@ var request=require('request');
 	twilio=require("twilio")
 	CronJob=require("cron").CronJob;
 	mongoose=require("mongoose");
+	ping = require('periodic-ping').ping;
 	//var confirmedcases,deaths,active,newcases,recovered;
 	// const Nexmo = require('nexmo')
 
@@ -33,6 +34,16 @@ var request=require('request');
 // });
 
 //var url = process.env.MONGOLAB_URI;
+
+const myPingConfig = {
+  appName: "myfirstdeployy",
+  wakeTime: 3,
+  wakeAm: true,
+  sleepTime: 8,
+  sleepAm: false,
+  frequency: 600000
+};
+
 
  mongoose.connect("mongodb+srv://amulya:Amulya29@@cluster0-mxqpw.mongodb.net/test?retryWrites=true&w=majority", {
 	useNewUrlParser: true,
@@ -115,6 +126,8 @@ request(options, function (error, response, body) {
 });
 console.log("after instansiation");
 job.start();
+
+ping(myPingConfig);
 
 app.listen(process.env.PORT || 3000,function(req,res){
 	console.log("server started");

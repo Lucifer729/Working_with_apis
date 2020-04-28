@@ -16,6 +16,7 @@
     "mongoose": "^5.9.10",
     "nexmo": "^2.6.0",
     "node-fetch": "^2.6.0",
+    "periodic-ping": "^2.0.0",
     "request": "^2.88.2",
     "twilio": "^3.42.2",
     "underscore": "^1.10.2",

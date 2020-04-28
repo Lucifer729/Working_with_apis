@@ -103,7 +103,7 @@ request(options, function (error, response, body) {
 						client.messages.create({
 						  to: '+918630757295',
 						  from: '+18634501351',
-						  body: "COVID 19 ALERT!!!\n" +city.newconfirmed +"New cases in  Aligarh\n Confirmed: "+city.confirmed +"\nDeaths: "+city.deceased //selectedCity.data[0].active
+						  body: "COVID 19 ALERT!!!\n" +"***Aligarh***\nNew Case: "+city.newconfirmed + "\nConfirmed: "+city.confirmed +"\nDeaths: "+city.deceased + "\nActive: "city.active
 						}).then(message => console.log(message.status));
 				});
 		};

@@ -42,7 +42,7 @@ const myPingConfig = {
   wakeAm: true,
   sleepTime: 8,
   sleepAm: false,
-  frequency: 600000
+  frequency: 900000
 };
 
 

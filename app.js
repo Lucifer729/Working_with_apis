@@ -34,6 +34,7 @@ var request=require('request');
 // });
 
 //var url = process.env.MONGOLAB_URI;
+var arr=['+918630757295','+918077877966','+918619076613','+919456667451'];
 
 const myPingConfig = {
   appName: "myfirstdeployy",
@@ -111,11 +112,13 @@ request(options, function (error, response, body) {
 					else{
 					Covid.updateOne({name:"Aligarh"},city,function(err,updated){
 						console.log("successfully updated");
+						arr.forEach(function(val){
 						client.messages.create({
-						  to: '+918630757295',
+						  to: val,
 						  from: '+18634501351',
 						  body: "COVID 19 ALERT!!!\n" +"***Aligarh***\nNew Case: "+city.newconfirmed + "\nConfirmed: "+city.confirmed +"\nDeaths: "+city.deceased + "\nActive: "+city.active
 						}).then(message => console.log(message.status));
+					});
 				});
 		};
 	});	

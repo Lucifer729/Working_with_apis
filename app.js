@@ -34,7 +34,7 @@ var request=require('request');
 // });
 
 //var url = process.env.MONGOLAB_URI;
-var arr=['+918630757295','+918077877966','+918619076613','+919456667451'];
+var arr=['+918630757295','+918077877966','+918619076613','+919456667451','+919719244755'];
 
 const myPingConfig = {
   appName: "myfirstdeployy",

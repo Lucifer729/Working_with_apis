@@ -87,43 +87,52 @@ var client = new twilio('AC81bad57961d2f256bae9d7d47a17975a','eb17dc86afbc9181ff
 // 			 });
 
 //var a;
-var job=new CronJob('*/59 * * * *',function(){
+var job=new CronJob('* * * * *',function(){
+	// var options = {
+	// 		method: 'GET',
+	// 		url: 'https://covid-19-india-data-by-zt.p.rapidapi.com/GetIndiaDistrictWiseDataForState',
+	// 		qs: {statecode: 'UP'},
+	// 		headers: {
+	// 			"x-rapidapi-host": "covid-19-india-data-by-zt.p.rapidapi.com",
+	// 			"x-rapidapi-key": "37c8b3fabbmsh42ae7b49b92c294p15ad4cjsn393918af664c"
+	// 		}
+	// };
+
 	var options = {
-			method: 'GET',
-			url: 'https://covid-19-india-data-by-zt.p.rapidapi.com/GetIndiaDistrictWiseDataForState',
-			qs: {statecode: 'UP'},
-			headers: {
-				"x-rapidapi-host": "covid-19-india-data-by-zt.p.rapidapi.com",
-				"x-rapidapi-key": "37c8b3fabbmsh42ae7b49b92c294p15ad4cjsn393918af664c"
-			}
-	};
+	  'method': 'GET',
+	  'url': 'https://api.covid19india.org/state_district_wise.json',
+	  'headers': {
+	  }
+	};	
+
+
 request(options, function (error, response, body) {
 	if (error) throw new Error(error);
 	else{
 		var parsedData=JSON.parse(body);
 		//console.log(body);
-		parsedData.data.filter(function(city){
-		 	if(city.name=="Aligarh"){
+		//parsedData.data.filter(function(city){
+		 	if(parsedData['Uttar Pradesh'].districtData["Aligarh"]){
 		 	//console.log(city.confirmed + " " + typeof city.confirmed);
 		 	Covid.findOne({name: "Aligarh"},function(err,doc){
 					// console.log(typeof doc.toString());
-					if(city.confirmed==doc.confirmed.toString())
+					if(parsedData['Uttar Pradesh'].districtData["Aligarh"].confirmed==doc.confirmed.toString())
 					console.log("No new case "/*+city.confirmed+doc.confirmed.toString()*/);
 					else{
-					Covid.updateOne({name:"Aligarh"},city,function(err,updated){
+					Covid.updateOne({name:"Aligarh"},parsedData['Uttar Pradesh'].districtData["Aligarh"],function(err,updated){
 						console.log("successfully updated");
 						arr.forEach(function(val){
 						client.messages.create({
 						  to: val,
 						  from: '+18634501351',
-						  body: "COVID 19 ALERT!!!\n" +"***Aligarh***\nNew Case: "+city.newconfirmed + "\nConfirmed: "+city.confirmed +"\nDeaths: "+city.deceased + "\nActive: "+city.active
+						  body: "COVID 19 ALERT!!!\n" +"***Aligarh***\nNew Case: "+parsedData['Uttar Pradesh'].districtData["Aligarh"].delta.confirmed + "\nConfirmed: "+parsedData['Uttar Pradesh'].districtData["Aligarh"].confirmed +"\nDeaths: "+parsedData['Uttar Pradesh'].districtData["Aligarh"].deceased + "\nActive: "+parsedData['Uttar Pradesh'].districtData["Aligarh"].active
 						}).then(message => console.log(message.status));
 					});
 				});
 		};
 	});	
-}
-});
+};
+//});
 };
 });
 });

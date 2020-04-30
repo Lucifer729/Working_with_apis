@@ -87,14 +87,14 @@ var client = new twilio('AC81bad57961d2f256bae9d7d47a17975a','eb17dc86afbc9181ff
 // 			 });
 
 //var a;
-var job=new CronJob('*/25 * * * *',function(){
+var job=new CronJob('*/59 * * * *',function(){
 	var options = {
 			method: 'GET',
 			url: 'https://covid-19-india-data-by-zt.p.rapidapi.com/GetIndiaDistrictWiseDataForState',
 			qs: {statecode: 'UP'},
 			headers: {
-				'x-rapidapi-host': 'covid-19-india-data-by-zt.p.rapidapi.com',
-			    'x-rapidapi-key': 'bf75e041c8msh13265b677eb9845p164888jsn89f3a2ef44f1'
+				"x-rapidapi-host": "covid-19-india-data-by-zt.p.rapidapi.com",
+				"x-rapidapi-key": "37c8b3fabbmsh42ae7b49b92c294p15ad4cjsn393918af664c"
 			}
 	};
 request(options, function (error, response, body) {

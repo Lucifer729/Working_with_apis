@@ -87,7 +87,7 @@ var client = new twilio('AC81bad57961d2f256bae9d7d47a17975a','eb17dc86afbc9181ff
 // 			 });
 
 //var a;
-var job=new CronJob('*/25 * * * *',function(){
+var job=new CronJob('*/45 * * * *',function(){
 	// var options = {
 	// 		method: 'GET',
 	// 		url: 'https://covid-19-india-data-by-zt.p.rapidapi.com/GetIndiaDistrictWiseDataForState',
@@ -125,7 +125,7 @@ request(options, function (error, response, body) {
 						client.messages.create({
 						  to: val,
 						  from: '+18634501351',
-						  body: "COVID 19 ALERT!!!\n" +"***Aligarh***\nNew Case: "+parsedData['Uttar Pradesh'].districtData["Aligarh"].delta.confirmed + "\nConfirmed: "+parsedData['Uttar Pradesh'].districtData["Aligarh"].confirmed +"\nDeaths: "+parsedData['Uttar Pradesh'].districtData["Aligarh"].deceased + "\nActive: "+parsedData['Uttar Pradesh'].districtData["Aligarh"].active
+						  body: "\nCOVID 19 ALERT!!!\n" +"***Aligarh***\nNew Case: "+parsedData['Uttar Pradesh'].districtData["Aligarh"].delta.confirmed + "\nConfirmed: "+parsedData['Uttar Pradesh'].districtData["Aligarh"].confirmed +"\nDeaths: "+parsedData['Uttar Pradesh'].districtData["Aligarh"].deceased + "\nActive: "+parsedData['Uttar Pradesh'].districtData["Aligarh"].active
 						}).then(message => console.log(message.status));
 					});
 				});

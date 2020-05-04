@@ -32,9 +32,8 @@ var request=require('request');
 //   if (error) throw new Error(error);
 //   console.log(response.body);
 // });
-
 //var url = process.env.MONGOLAB_URI;
-var arr=['+918630757295','+918077877966','+918619076613','+919456667451','+919719244755','+14016485440'];
+var arr=['+918630757295','+918077877966','+918619076613','+919456667451','+919719244755','+14016485440','+919897271621'];
 
 const myPingConfig = {
   appName: "myfirstdeployy",

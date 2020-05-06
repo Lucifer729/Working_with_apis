@@ -86,7 +86,7 @@ var client = new twilio('AC81bad57961d2f256bae9d7d47a17975a','eb17dc86afbc9181ff
 // 			 });
 
 //var a;
-var job=new CronJob('*/45 * * * *',function(){
+var job=new CronJob('*/25 * * * *',function(){
 	// var options = {
 	// 		method: 'GET',
 	// 		url: 'https://covid-19-india-data-by-zt.p.rapidapi.com/GetIndiaDistrictWiseDataForState',
